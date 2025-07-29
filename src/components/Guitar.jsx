@@ -23,8 +23,7 @@ function Guitar() {
     return (
         <div className="guitar-container">
             <div className="guitar-image-wrapper">
-                <img src="/acoustic-guitar-portion.svg" alt="Acoustic Guitar" draggable="false"
-                />
+                <img src="/acoustic-guitar-portion.svg" alt="Acoustic Guitar" draggable="false"/>
             </div>
         </div>
     );
