@@ -1,23 +1,38 @@
-import './Guitar.css'
+import './Guitar.css';
+import { useEffect } from 'react';
 
 function Guitar() {
-    window.addEventListener('resize', () => {
-        let browserZoom = Math.round(window.devicePixelRatio * 100);
-        let titleSize = document.querySelector('#title').style.fontSize;
+    useEffect(() => {
+        const resizeHandler = () => {
+            const title = document.querySelector('#title');
+            if (!title) return;
 
-        if (browserZoom > 100) {
-            document.querySelector('#title').style.fontSize = titleSize + (browserZoom % 100);
-        } else {
-            document.querySelector('#title').style.fontSize = titleSize + (100 % browserZoom);
-        }
-    })
+            const zoom = Math.round(window.devicePixelRatio * 100);
+            const currentSize = parseInt(getComputedStyle(title).fontSize, 10);
+
+            title.style.fontSize =
+                zoom > 100 ? `${currentSize + (zoom % 100)}px` : `${currentSize + (100 % zoom)}px`;
+        };
+
+        window.addEventListener('resize', resizeHandler);
+
+        // a-add kola kay para prevent memory leaks
+        return () => window.removeEventListener('resize', resizeHandler);
+    }, []);
 
     return (
         <div className="guitar-container">
-            <h1 id="title">The Web Guitar</h1>
-            <img src="acoustic-guitar-portion.svg" alt="Acoustic Guitar"/>
+            <div className="guitar-image-wrapper">
+                <img
+                    src="/acoustic-guitar-portion.svg"s
+                    alt="Acoustic Guitar"
+                    draggable="false"
+                />
+            </div>
         </div>
     );
 }
 
-export default Guitar
+export default Guitar;
+
+// TODO: Add strings on top of the guitar image
